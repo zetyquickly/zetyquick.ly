@@ -9,6 +9,7 @@ const TMP_DIR = path.join(os.tmpdir(), 'sphere-in-torus')
 const OUTPUT_DIR = path.join(__dirname, '..', 'public', 'sphere-in-torus')
 
 function run(cmd, cwd) {
+  console.log(`[webgpu] $ ${cmd}`)
   execSync(cmd, { cwd, stdio: 'inherit' })
 }
 
