@@ -26,7 +26,7 @@ if (fs.existsSync(LOCAL_PATH)) {
 }
 
 console.log('[webgpu] Installing dependencies...')
-run('npm install', srcDir)
+run('npm install --include=dev', srcDir)
 
 console.log('[webgpu] Building...')
 run('npm run prod', srcDir)
