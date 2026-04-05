@@ -25,7 +25,7 @@ if (fs.existsSync(LOCAL_PATH)) {
 }
 
 console.log('[webgpu] Installing dependencies...')
-run('npm install --legacy-peer-deps', srcDir)
+run('npm install', srcDir)
 
 console.log('[webgpu] Building...')
 run('npm run prod', srcDir)
