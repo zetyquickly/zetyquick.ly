@@ -1,0 +1,144 @@
+---
+title: 'Practitioners Recap on SIGGRAPH 2025'
+publishedAt: '2025-08-25'
+summary: 'My first time attending SIGGRAPH in person after having a paper accepted at SIGGRAPH 2022. Here is a recap of the talks, technical papers, and posters that caught my attention in Vancouver.'
+coverImage: '/blog/siggraph-2025-recap/img_1835.jpg'
+---
+
+Based on conversations with people in my Bay Area circle, I've noticed many aren't familiar with what SIGGRAPH actually is. Let me briefly introduce the conference, then share my observations from this year's event in Vancouver.
+
+SIGGRAPH is a computer graphics conference where you can meet both artists and engineers working in game development (like Electronic Arts), animation (such as Pixar), or AI in computer vision (like LumaAI's text-to-video engine). The conference features technical paper publications and is considered a tier-1 venue for machine learning in computer vision research, alongside ICML, CVPR, and similar conferences.
+
+The technical papers section represents the most exciting and cutting-edge part of the entire event. Other highlights include talks on graphics and industry challenges, plus companies showcasing their latest technologies, such as Nvidia's and Houdini's exhibition areas.
+
+## My Personal Journey with SIGGRAPH
+
+During my time at Skoltech, I collaborated on several 3D computer vision research projects with [Alexey Artemov](https://scholar.google.com/citations?user=5lVsH-IAAAAJ&hl=en) and [Evgeny Burnaev](https://scholar.google.com/citations?user=pCRdcOwAAAAJ&hl=en). My role involved preparing data on clusters and running benchmarks against competitors in Matlab. Throughout 2020-2021, we persistently tried to publish our paper ["DEF: deep estimation of sharp geometric features in 3D shapes"](https://arxiv.org/abs/2011.15081). After submitting to SIGGRAPH 2021, then SIGGRAPH Asia, we finally got it accepted at SIGGRAPH 2022. Frustratingly, none of us could attend the conference as authors due to travel restrictions at the time... So 2025 marked my first opportunity to actually attend.
+
+![IMG_1638](/blog/siggraph-2025-recap/img_1638.jpg)
+
+## The Conference
+
+In this section I will cover a couple of talks and sessions I attended during the first 3 days of the conference.
+
+### A Whirlwind Introduction to Computer Graphics
+
+[Session link](https://s2025.conference-schedule.org/presentation/?id=gensub_130&sess=sess202)
+
+It started on Sunday with "A Whirlwind Introduction to Computer Graphics" hosted by Mike Bailey. There's a section at each conference where attendees gain knowledge on the basics of what the main topics are. This one introduces CG to the attendees, similar to sessions that introduce SIGGRAPH overall to [beginners](https://www.youtube.com/watch?v=6v_UV0Ve0s8), and [ACM SIGGRAPH chapters](https://www.siggraph.org/inside-siggraph/chapters/) that are available in many parts of the world ([video](https://www.youtube.com/watch?v=0SSDl2zfxtA)).
+
+Speaking of the session itself, it is actually a whirlwind, but quite comprehensive. It tackles three major aspects of CG and how they are interlinked:
+
+- **modeling** — how we model geometry of the objects seen on the screen
+- **rendering** — the process of creating an image of geometric models
+- **animation** — the process of giving motion to your geometric models
+
+It's a pretty solid foundation to get to know generic terms of the field such as meshes, L-system, rigging, fake physics, etc.
+
+So if you want to start getting familiar with computer graphics, check the [slides](https://web.engr.oregonstate.edu/~mjb/whirlwind).
+
+### Assessing Video Quality in Real-time Computer Graphics
+
+[BOF Session: Assessing Video Quality in Real-time Computer Graphics](https://s2025.conference-schedule.org/presentation/?id=bof_156&sess=sess493)
+
+This presentation is about the modern challenges of assessing the quality of graphics spanning across gaming, image and video generation.
+
+Ten-fifteen years ago when the newest GPU was coming out, the benchmarking was straightforward: the newer, more powerful video chip could output more frames per second, process more triangles and output them on the screen; if so, it was considered better than the previous version. Today we face multifaceted challenges. First, with upscaling techniques and frame interpolation, it has become unusable to rely only on FPS; the quality of a frame and the frame in time needed to be brought into consideration — what metrics do we use for it? Secondly, the capabilities of the output device (your monitor, basically) also need to be considered: is it HDR, what is the frequency rate, what is the native resolution? Everything drastically varies from setup to setup. Third, in what way should we measure games differently from the content we watch passively?
+
+What we usually use to assess the quality:
+
+- For image generation: [PSNR](https://en.wikipedia.org/wiki/Peak_signal-to-noise_ratio), [SSIM](https://en.wikipedia.org/wiki/Structural_similarity_index_measure), [LPIPS](https://github.com/richzhang/PerceptualSimilarity)
+- For video generation: [VMAF](https://github.com/Netflix/vmaf), [ST-RRED](https://www.scikit-video.org/stable/modules/generated/skvideo.measure.strred.html), different [VDPs](https://resources.mpi-inf.mpg.de/hdr/vdp/)
+
+![Ghosting TAA](/blog/siggraph-2025-recap/ghosting_taa.webp)
+*Source: [Assessing Video Quality in Real-time Computer Graphics — Intel Community](https://community.intel.com/t5/Blogs/Tech-Innovation/Client/Assessing-Video-Quality-in-Real-time-Computer-Graphics/post/1694109)*
+
+Engineers from Intel propose a new metric:
+
+> CGVQM is a full-reference video quality metric that predicts perceptual differences between pairs of videos
+
+To learn more about the effort on this front, check out their [GitHub project](https://github.com/IntelLabs/CGVQM). It's a learnable metric (essentially a trained neural network) that can be used to assess the quality of video.
+
+### Hands-On Class: Stylization in Unreal Engine
+
+[Session link](https://s2025.conference-schedule.org/presentation/?id=gensubcur_107&sess=sess290)
+
+An interesting session on how to make your own comic style shader using the standard tooling of UE. Something very similar to what we saw in the [Borderlands](https://en.wikipedia.org/wiki/Borderlands_(series)) game series.
+
+Below there's a tutorial we followed during the hands-on session with its author C. Michael Neely from Epic Games: [Deconstructing a Stylized Comic Shader](https://dev.epicgames.com/community/learning/tutorials/J3ea/unreal-engine-deconstructing-a-stylized-comic-shader).
+
+![Fab preview](/blog/siggraph-2025-recap/fab_preview.jpg)
+*Source: [Fab](https://www.fab.com/listings/00969cf5-848a-4d15-b1bc-f7c76ec126a2)*
+
+## Technical Papers and Posters
+
+The true highlight of SIGGRAPH is its technical papers—peer-submitted and peer-reviewed by researchers worldwide. I'll highlight several that particularly impressed me.
+
+A complete list of papers can be found [here](https://s2025.conference-schedule.org/session/?sess=sess284).
+
+### Dress-1-to-3: Single Image to Simulation-Ready 3D Outfit with Diffusion Prior and Differentiable Physics
+
+[Paper link](https://arxiv.org/pdf/2502.03449)
+
+![Screenshot 1](/blog/siggraph-2025-recap/screenshot_1.webp)
+
+The method proposed can be used for creating a 3D model of a garment based on a single 2D input image, which is quite useful for creating multi-view representations of the outfit.
+
+![Screenshot 2](/blog/siggraph-2025-recap/screenshot_2.webp)
+
+Results are pretty limited with the current pipeline, but it is a promising way to go.
+
+### Single View Garment Reconstruction Using Diffusion Mapping Via Pattern Coordinates
+
+Another work in this direction is done by researchers from Switzerland and the UAE.
+
+[Paper link](https://arxiv.org/pdf/2504.08353)
+
+![Screenshot 3](/blog/siggraph-2025-recap/screenshot_3.webp)
+
+This work reconstructs a 3D mesh of the garment with normals and fits the SMPL human model pose based on one 2D input image.
+
+![Screenshot 4](/blog/siggraph-2025-recap/screenshot_4.webp)
+
+### InstantRestore: Single-Step Personalized Face Restoration with Shared-Image Attention
+
+[Paper link](https://arxiv.org/pdf/2412.06753)
+
+![Screenshot 5](/blog/siggraph-2025-recap/screenshot_5.webp)
+
+The following work is quite exciting because it is based on the idea of face restoration with reference images. This is a quite intuitive approach yet underexplored in the community, as most of the time "blind" restorers are being used such as [CodeFormer](https://arxiv.org/abs/2206.11253).
+
+### LightLab: Controlling Light Sources in Images with Diffusion Models
+
+[Paper link](https://arxiv.org/pdf/2505.09608)
+
+![Screenshot 6](/blog/siggraph-2025-recap/screenshot_6.webp)
+
+Controlling the light in the image is the feature where diffusion models shine a lot due to their ability to perceive the depth of the image. There are multiple available tools that do image illumination harmonization and relighting, for example [IC-Light](https://openreview.net/forum?id=u1cQYxRI1H) or recently (finally) added harmonization in [Adobe Firefly](https://www.adobe.com/products/photoshop/harmonize-image-blender.html).
+
+Based on the metrics provided in the LightLab paper, they outperform IC-Light both in SSIM and PSNR metrics.
+
+### Nested Attention: Semantic-aware Attention Values for Concept Personalization
+
+There were plenty of interesting posters as well, let me tell about two of them.
+
+![Snap portrait](/blog/siggraph-2025-recap/snap_portrait.webp)
+
+First, from the researchers at Snap. It introduces a learnable adapter to existing Stable Diffusion XL architecture that allows creation of personalized portraits based on a single example of a person's face, training-free. This is achieved by proper training on a human faces dataset which allows the model to attend to subtle details on any input face. Paper link: [https://arxiv.org/abs/2501.01407](https://arxiv.org/abs/2501.01407)
+
+### Super Resolution for Humans
+
+![Super res diagram](/blog/siggraph-2025-recap/super_res_diagram.webp)
+
+The following paper ([https://arxiv.org/pdf/2411.17513](https://arxiv.org/pdf/2411.17513)) aims to improve image quality of low-resolution images by applying a super-resolution neural network, but in a clever way. Because neural networks are computationally expensive if applied to the whole image, they suggest applying them only to the regions which the human eye grasps the most.
+
+### About Vancouver
+
+In conclusion to this quick overview of my SIGGRAPH visit, I'd like to share a few thoughts about the wonderful city of Vancouver. Canadians deeply honor the heritage of the Indigenous peoples of these lands and actively nurture their art traditions. Many people don't realize that numerous totem poles found in museums worldwide were actually created by local artists in relatively recent times. Beyond the conference, I visited the Museum of Anthropology at UBC, which houses many of these magnificent artistic works. Across the city, you can find pieces of Indigenous art that have evolved alongside the modern metropolis of Vancouver.
+
+<div className="flex gap-4">
+  <img src="/blog/siggraph-2025-recap/img_1678.jpg" alt="IMG_1678" className="w-1/2" />
+  <img src="/blog/siggraph-2025-recap/img_1660.jpg" alt="IMG_1660" className="w-1/2" />
+</div>
+
+### Thanks for your attention!

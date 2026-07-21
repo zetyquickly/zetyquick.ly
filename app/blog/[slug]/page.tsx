@@ -11,8 +11,9 @@ export async function generateStaticParams() {
   }))
 }
 
-export function generateMetadata({ params }) {
-  let post = getBlogPosts().find((post) => post.slug === params.slug)
+export async function generateMetadata({ params }) {
+  let { slug } = await params
+  let post = getBlogPosts().find((post) => post.slug === slug)
   if (!post) {
     return
   }
@@ -51,8 +52,9 @@ export function generateMetadata({ params }) {
   }
 }
 
-export default function Blog({ params }) {
-  let post = getBlogPosts().find((post) => post.slug === params.slug)
+export default async function Blog({ params }) {
+  let { slug } = await params
+  let post = getBlogPosts().find((post) => post.slug === slug)
 
   if (!post) {
     notFound()
@@ -60,6 +62,16 @@ export default function Blog({ params }) {
 
   return (
     <section>
+      {post.metadata.coverImage && (
+        <div className="mb-8" style={{ width: '100vw', marginLeft: 'calc(-50vw + 50%)' }}>
+          <img
+            src={post.metadata.coverImage}
+            alt=""
+            className="w-full h-[30vh] max-h-[280px] object-cover"
+            style={{ objectPosition: 'center 61.74%', display: 'block' }}
+          />
+        </div>
+      )}
       <script
         type="application/ld+json"
         suppressHydrationWarning
