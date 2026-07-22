@@ -7,12 +7,14 @@ export const metadata = {
 
 const myProjects = [
   {
+    type: 'internal' as const,
     name: 'Sphere in Torus',
     href: '/built/sphere-in-torus',
     description:
       'WebGPU simulation of a sphere bouncing inside a wireframe torus. Built with TypeScript and raw WebGPU — no three.js.',
   },
   {
+    type: 'external' as const,
     name: 'FaceSwap-a-GIF',
     url: 'https://replicate.com/zetyquickly-org/faceswap-a-gif',
     description:
@@ -50,7 +52,7 @@ export default function Page() {
 
       <div className="flex flex-col space-y-6">
         {myProjects.map((project) =>
-          'href' in project ? (
+          project.type === 'internal' ? (
             <div key={project.name} className="flex flex-col space-y-2">
               <iframe
                 src="/sphere-in-torus/fullscreen.html"
